@@ -4426,3 +4426,83 @@ Completed 200 OK in 179ms (Views: 95.7ms | ActiveRecord: 15.1ms)
   [1m[36mDelayed::Backend::ActiveRecord::Job Load (0.6ms)[0m  [1m[37mUPDATE "delayed_jobs" SET locked_at = '2018-09-04 20:00:46.243662', locked_by = 'host:Cools-iMac.local pid:43442' WHERE id IN (SELECT  "delayed_jobs"."id" FROM "delayed_jobs" WHERE ((run_at <= '2018-09-04 20:00:46.243013' AND (locked_at IS NULL OR locked_at < '2018-09-04 16:00:46.243028') OR locked_by = 'host:Cools-iMac.local pid:43442') AND failed_at IS NULL) ORDER BY priority ASC, run_at ASC LIMIT 1 FOR UPDATE) RETURNING *[0m
   [1m[36mDelayed::Backend::ActiveRecord::Job Load (0.5ms)[0m  [1m[37mUPDATE "delayed_jobs" SET locked_at = '2018-09-04 20:01:00.445538', locked_by = 'host:Cools-iMac.local pid:43442' WHERE id IN (SELECT  "delayed_jobs"."id" FROM "delayed_jobs" WHERE ((run_at <= '2018-09-04 20:01:00.444888' AND (locked_at IS NULL OR locked_at < '2018-09-04 16:01:00.444905') OR locked_by = 'host:Cools-iMac.local pid:43442') AND failed_at IS NULL) ORDER BY priority ASC, run_at ASC LIMIT 1 FOR UPDATE) RETURNING *[0m
   [1m[36mDelayed::Backend::ActiveRecord::Job Update All (0.5ms)[0m  [1m[33mUPDATE "delayed_jobs" SET "locked_by" = NULL, "locked_at" = NULL WHERE "delayed_jobs"."locked_by" = $1[0m  [["locked_by", "host:Cools-iMac.local pid:43442"]]
+  [1m[35m (397.2ms)[0m  [1m[35mCREATE DATABASE "prelunch_development" ENCODING = 'utf8'[0m
+  [1m[35m (468.0ms)[0m  [1m[35mCREATE DATABASE "prelunch_test" ENCODING = 'utf8'[0m
+  [1m[35m (43.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (41.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3380704774076597205)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20130126215239)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3380704774076597205)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3380704774076597205)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20130126215239)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (42.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial NOT NULL PRIMARY KEY, "email" character varying, "referral_code" character varying, "referrer_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20130126215239"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseCreateAdminUsers (20130127063936)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(3380704774076597205)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3380704774076597205)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateAdminUsers (20130127063936)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (43.9ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" serial NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying, "last_sign_in_ip" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admin_users_on_email" ON "admin_users"  ("email")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admin_users_on_reset_password_token" ON "admin_users"  ("reset_password_token")[0m
+  [1m[36mAdminUser Exists (14.2ms)[0m  [1m[34mSELECT  1 AS one FROM "admin_users" WHERE "admin_users"."email" = $1 LIMIT $2[0m  [["email", "tech@harrys.com"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.6ms)[0m  [1m[32mINSERT INTO "admin_users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "tech@harrys.com"], ["encrypted_password", "$2a$10$67DDlXbHvC3M01MdmHN8JeJFPeGIGgwnVFP635PN8ZuuTYvXOH/WO"], ["created_at", "2018-10-06 02:54:07.880778"], ["updated_at", "2018-10-06 02:54:07.880778"]]
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20130127063936"]]
+  [1m[35m (22.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAdminNotes (20130127063939)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "admin_notes" ("id" serial NOT NULL PRIMARY KEY, "resource_id" character varying NOT NULL, "resource_type" character varying NOT NULL, "admin_user_type" character varying, "admin_user_id" integer, "body" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_admin_notes_on_resource_type_and_resource_id" ON "admin_notes"  ("resource_type", "resource_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_admin_notes_on_admin_user_type_and_admin_user_id" ON "admin_notes"  ("admin_user_type", "admin_user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20130127063939"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to MoveAdminNotesToComments (20130127063940)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (18.5ms)[0m  [1m[35mDROP INDEX  "index_admin_notes_on_admin_user_type_and_admin_user_id"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "admin_notes" RENAME TO "active_admin_comments"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER INDEX "admin_notes_pkey" RENAME TO "active_admin_comments_pkey"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "public"."admin_notes_id_seq" RENAME TO "active_admin_comments_id_seq"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER INDEX "index_admin_notes_on_resource_type_and_resource_id" RENAME TO "index_active_admin_comments_on_resource_type_and_resource_id"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "active_admin_comments" RENAME COLUMN "admin_user_type" TO "author_type"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "active_admin_comments" RENAME COLUMN "admin_user_id" TO "author_id"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "active_admin_comments" ADD "namespace" character varying[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_namespace" ON "active_admin_comments"  ("namespace")[0m
+  [1m[35m (10.9ms)[0m  [1m[35mCREATE  INDEX  "index_active_admin_comments_on_author_type_and_author_id" ON "active_admin_comments"  ("author_type", "author_id")[0m
+  [1m[35m (12.0ms)[0m  [1m[33mUPDATE active_admin_comments SET namespace='admin'[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20130127063940"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDelayedJobs (20130227185712)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "delayed_jobs"[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "delayed_jobs" ("id" serial NOT NULL PRIMARY KEY, "priority" integer DEFAULT 0, "attempts" integer DEFAULT 0, "handler" text, "last_error" text, "run_at" timestamp, "locked_at" timestamp, "failed_at" timestamp, "locked_by" character varying, "queue" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "delayed_jobs_priority" ON "delayed_jobs"  ("priority", "run_at")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20130227185712"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateIpAddresses (20130312045541)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "ip_addresses" ("id" serial NOT NULL PRIMARY KEY, "address" character varying, "count" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20130312045541"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (13.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-10-06 02:54:08.051782"], ["updated_at", "2018-10-06 02:54:08.051782"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3380704774076597205)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mAdminUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "admin_users" WHERE "admin_users"."email" = $1 LIMIT $2[0m  [["email", "softworld783@gmail.com"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.4ms)[0m  [1m[32mINSERT INTO "admin_users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "softworld783@gmail.com"], ["encrypted_password", "$2a$10$ynzuYhPRTr3CdI1129GKSunUaBz4OGtJ79tRqT989LNPkonGZhtmq"], ["created_at", "2018-10-06 02:54:15.103901"], ["updated_at", "2018-10-06 02:54:15.103901"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_campaign_ongoing.html.erb (15.9ms)
+  Rendered users/new.html.erb within layouts/application (24.3ms)
+Completed 200 OK in 108ms (Views: 52.0ms | ActiveRecord: 8.5ms)
+
+
